@@ -1,5 +1,5 @@
 AUTHOR = 'Abdellatif Labreche'
-SITENAME = "Abdellatif's Blog"
+SITENAME = "Abdellatif Labreche"
 SITEURL = ""
 
 PATH = "content"
@@ -15,23 +15,35 @@ TRANSLATION_FEED_ATOM = None
 AUTHOR_FEED_ATOM = None
 AUTHOR_FEED_RSS = None
 
-THEME="notmyidea"
+THEME = "./themes/bs"
 
 # Blogroll
 LINKS = (
-    ("Pelican", "https://getpelican.com/"),
-    ("Python.org", "https://www.python.org/"),
-    ("Jinja2", "https://palletsprojects.com/p/jinja/"),
-    ("You can modify those links in your config file", "#"),
+    # ("Pelican", "https://getpelican.com/"),
+    # ("Python.org", "https://www.python.org/"),
+    # ("Jinja2", "https://palletsprojects.com/p/jinja/"),
+    # ("You can modify those links in your config file", "#"),
 )
 
 # Social widget
 SOCIAL = (
-    ("You can add links in your config file", "#"),
-    ("Another social link", "#"),
+    ("Github", "https://github.com/abdellatifLabr"),
 )
 
 DEFAULT_PAGINATION = False
 
 # Uncomment following line if you want document-relative URLs when developing
 # RELATIVE_URLS = True
+
+PLUGIN_PATHS = ["plugins"]
+PLUGINS = ["extract_toc"]
+
+MARKDOWN = {
+    'extension_configs': {
+        'markdown.extensions.codehilite': {},
+        'markdown.extensions.extra': {},
+        'markdown.extensions.meta': {},
+        'markdown.extensions.toc': {},
+    },
+    'output_format': 'html5',
+}

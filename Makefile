@@ -10,6 +10,8 @@ PUBLISHCONF=$(BASEDIR)/publishconf.py
 
 GITHUB_PAGES_BRANCH=main
 
+PYGMENTS_THEME=default
+
 
 DEBUG ?= 0
 ifeq ($(DEBUG), 1)
@@ -30,22 +32,23 @@ endif
 
 
 help:
-	@echo 'Makefile for a pelican Web site                                           '
-	@echo '                                                                          '
-	@echo 'Usage:                                                                    '
-	@echo '   make html                           (re)generate the web site          '
-	@echo '   make clean                          remove the generated files         '
-	@echo '   make regenerate                     regenerate files upon modification '
-	@echo '   make publish                        generate using production settings '
-	@echo '   make serve [PORT=8000]              serve site at http://localhost:8000'
-	@echo '   make serve-global [SERVER=0.0.0.0]  serve (as root) to $(SERVER):80    '
-	@echo '   make devserver [PORT=8000]          serve and regenerate together      '
-	@echo '   make devserver-global               regenerate and serve on 0.0.0.0    '
-	@echo '   make github                         upload the web site via gh-pages   '
-	@echo '                                                                          '
-	@echo 'Set the DEBUG variable to 1 to enable debugging, e.g. make DEBUG=1 html   '
-	@echo 'Set the RELATIVE variable to 1 to enable relative urls                    '
-	@echo '                                                                          '
+	@echo 'Makefile for a pelican Web site                                           	  '
+	@echo '                                                                          	  '
+	@echo 'Usage:                                                                    	  '
+	@echo '   make html                           (re)generate the web site          	  '
+	@echo '   make clean                          remove the generated files         	  '
+	@echo '   make regenerate                     regenerate files upon modification 	  '
+	@echo '   make publish                        generate using production settings 	  '
+	@echo '   make serve [PORT=8000]              serve site at http://localhost:8000	  '
+	@echo '   make serve-global [SERVER=0.0.0.0]  serve (as root) to $(SERVER):80    	  '
+	@echo '   make devserver [PORT=8000]          serve and regenerate together      	  '
+	@echo '   make devserver-global               regenerate and serve on 0.0.0.0    	  '
+	@echo '   make github                         upload the web site via gh-pages   	  '
+	@echo '   make pygmentize                     generate pygments code highlighting css '
+	@echo '                                                                               '
+	@echo 'Set the DEBUG variable to 1 to enable debugging, e.g. make DEBUG=1 html        '
+	@echo 'Set the RELATIVE variable to 1 to enable relative urls                         '
+	@echo '                                                                               '
 
 html:
 	"$(PELICAN)" "$(INPUTDIR)" -o "$(OUTPUTDIR)" -s "$(CONFFILE)" $(PELICANOPTS)
@@ -75,5 +78,8 @@ github: publish
 	ghp-import -m "Generate Pelican site" -b $(GITHUB_PAGES_BRANCH) "$(OUTPUTDIR)"
 	git push origin $(GITHUB_PAGES_BRANCH)
 
+pygmentize:
+	pygmentize -S $(PYGMENTS_THEME) -f html -a .codehilite > themes/bs/static/css/codehilite.css
 
-.PHONY: html help clean regenerate serve serve-global devserver devserver-global publish github
+
+.PHONY: html help clean regenerate serve serve-global devserver devserver-global publish github pygmentize

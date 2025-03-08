@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="{% block html_lang %}{{ DEFAULT_LANG }}{% endblock html_lang %}">
+<head>
+        {% block head %}
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="generator" content="Pelican" />
+        <title>{% block title %}{{ SITENAME|striptags }}{%endblock%}</title>
+        <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/codehilite.css" />
+        <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/{{ CSS_FILE }}" />
+        {% if FEED_ALL_ATOM %}
+        <link href="{{ FEED_DOMAIN }}/{% if FEED_ALL_ATOM_URL %}{{ FEED_ALL_ATOM_URL }}{% else %}{{ FEED_ALL_ATOM }}{% endif %}" type="application/atom+xml" rel="alternate" title="{{ SITENAME|striptags }} Atom Feed" />
+        {% endif %}
+        {% if FEED_ALL_RSS %}
+        <link href="{{ FEED_DOMAIN }}/{% if FEED_ALL_RSS_URL %}{{ FEED_ALL_RSS_URL }}{% else %}{{ FEED_ALL_RSS }}{% endif %}" type="application/rss+xml" rel="alternate" title="{{ SITENAME|striptags }} RSS Feed" />
+        {% endif %}
+        {% block extra_head %}{% endblock extra_head %}
+        {% endblock head %}
+</head>
+
+<body id="index" class="home">
+{% include 'github.html' %}
+
+        <nav class="navbar navbar-default navbar-static-top navbar-inverse">
+            <div class="container">
+                <div class="navbar-header">
+                        <a class="navbar-brand" href="{{ SITEURL }}/">{{ SITENAME }}</a>
+                </div>
+
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        
+                        {% if SOCIAL or FEED_ALL_ATOM or FEED_ALL_RSS %}
+                        <ul class="nav navbar-nav navbar-right">
+                            {% if FEED_ALL_ATOM %}
+                            <li><a href="{{ FEED_DOMAIN }}/{% if FEED_ALL_ATOM_URL %}{{ FEED_ALL_ATOM_URL }}{% else %}{{ FEED_ALL_ATOM }}{% endif %}" type="application/atom+xml" rel="alternate">atom feed</a></li>
+                            {% endif %}
+                            {% if FEED_ALL_RSS %}
+                            <li><a href="{{ FEED_DOMAIN }}/{% if FEED_ALL_RSS_URL %}{{ FEED_ALL_RSS_URL }}{% else %}{{ FEED_ALL_RSS }}{% endif %}" type="application/rss+xml" rel="alternate">rss feed</a></li>
+                            {% endif %}
+                            {% for name, link in SOCIAL %}
+                                    <li><a href="{{ link }}">{{ name }}</a></li>
+                                {% endfor %}
+                          </ul>
+                        {% endif %}
+                </div>
+
+        </div>
+      </nav>
+        
+      <div class="container">
+          {% block content %}
+          {% endblock %}  
+      </div>
+
+      <div class="container">
+          <section id="extras" class="body">
+          {% if LINKS %}
+                  <div class="blogroll">
+                          <h3>{{ LINKS_WIDGET_NAME | default('Links') }}</h3>
+                          <ul>
+                          {% for name, link in LINKS %}
+                              <li><a href="{{ link }}">{{ name }}</a></li>
+                          {% endfor %}
+                          </ul>
+                  </div><!-- /.blogroll -->
+          {% endif %}
+          
+          </section><!-- /#extras -->
+
+      </div>
+
+{% include 'analytics.html' %}
+{% include 'disqus_script.html' %}
+</body>
+</html>
