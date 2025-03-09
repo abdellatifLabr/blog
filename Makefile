@@ -10,7 +10,7 @@ PUBLISHCONF=$(BASEDIR)/publishconf.py
 
 GITHUB_PAGES_BRANCH=main
 
-PYGMENTS_THEME=github-dark
+PYGMENTS_THEME=nord
 
 
 DEBUG ?= 0
